@@ -1,9 +1,7 @@
 const express = require('express')
-const mogoose = require('mongoose')
 
 const Category = require('../../models/category')
 const Record = require('../../models/record')
-const expenseTracker = require('../../models/expenseTracker.json')
 
 const Router = express.Router()
 
@@ -40,19 +38,20 @@ function get_yyyymmdd(date) {
 
 Router.get('/', (req, res) => {
   const total_amount_category = req.query.filter || null
-  let totalAmount = 0
 
   Category
     .find()
     .lean()
     .then(categories => {
+      categories.push({ category: "全部" })
+      const currentCategory = categories.filter(category => category._id == total_amount_category)[0].category || "全部"
+
       Record
         .find()
         .lean()
         .populate({ path: 'category', names: ['category', 'icon'] })
         .then(records => {
-          console.log(get_yyyymmdd(records[0].date))
-          totalAmount = get_total_amount(total_amount_category, records)
+          const totalAmount = get_total_amount(total_amount_category, records)
           records = records.map(record => {
             return {
               _id: record._id,
@@ -63,7 +62,8 @@ Router.get('/', (req, res) => {
             }
           })
 
-          res.render('index', { records: records, categories: categories, totalAmount: totalAmount })
+
+          res.render('index', { records, categories, totalAmount, currentCategory })
         })
         .catch(error => console.error(error))
     })

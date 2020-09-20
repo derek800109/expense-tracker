@@ -1,8 +1,8 @@
 <div class="d-flex flex-column align-items-center">
   <!-- drop down menu -->
   <div class=" dropdown ml-5">
-    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
-      aria-haspopup="true" aria-expanded="false">類別</button>
+    <button class="btn btn-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true"
+      aria-expanded="false" style="width: 30rem;">{{currentCategory}}</button>
     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
       {{#each categories}}
       <a class="dropdown-item" href="/?filter={{this._id}}">{{this.category}}</a>
@@ -10,9 +10,9 @@
     </div>
   </div>
   <!-- total amount -->
-  <div class="d-flex">
+  <div class=" d-flex">
     <h3>總金額:</h3>
-    <div>{{totalAmount}}</div>
+    <h1 style="color: orange;">{{totalAmount}}</h1>
   </div>
   <!-- index of record -->
   <div class="col-md-6 mb-4">
