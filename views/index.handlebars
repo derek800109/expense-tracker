@@ -1,0 +1,40 @@
+<div class="d-flex flex-column align-items-center">
+  <!-- drop down menu -->
+  <div class=" dropdown ml-5">
+    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
+      aria-haspopup="true" aria-expanded="false">類別</button>
+    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+      {{#each categories}}
+      <a class="dropdown-item" href="/?filter={{this._id}}">{{this.category}}</a>
+      {{/each}}
+    </div>
+  </div>
+  <!-- total amount -->
+  <div class="d-flex">
+    <h3>總金額:</h3>
+    <div>{{totalAmount}}</div>
+  </div>
+  <!-- index of record -->
+  <div class="col-md-6 mb-4">
+    <ul class="list-group d-lg-flex">
+      {{#each records}}
+      <li class="list-group-item active d-flex justify-content-between">
+        <div class="d-flex">
+          <i class="{{this.category.icon}}"></i>
+          <div>
+            <div>{{this.name}}</div>
+            <div>{{this.date}}</div>
+          </div>
+        </div>
+        <div>{{this.amount}}</div>
+        <div>
+          <button type="button" class="btn btn-warning">修改</button>
+          <button type="button" class="btn btn-danger">刪除</button>
+        </div>
+      </li>
+      {{/each}}
+    </ul>
+  </div>
+  <!-- add new record -->
+  <button type="button" class="btn btn-success">新增支出</button>
+</div>
