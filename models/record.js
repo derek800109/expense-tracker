@@ -11,7 +11,8 @@ const recordSchema = new Schema({
     required: true
   },
   category: {
-    type: String,
+    type: Schema.Types.ObjectId,
+    ref: expenseTracker.names.category_model,
     required: true
   },
   date: {
@@ -23,6 +24,6 @@ const recordSchema = new Schema({
     min: 0,
     required: true
   }
-}, { collection: expenseTracker.results.record_collection_name })
+}, { collection: expenseTracker.names.record_collection })
 
-module.exports = mongoose.model(expenseTracker.results.record_model_name, recordSchema)
+module.exports = mongoose.model(expenseTracker.names.record_model, recordSchema)

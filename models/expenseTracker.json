@@ -1,9 +1,9 @@
 {
-  "results": {
-    "record_collection_name": "records",
-    "record_model_name": "Record",
-    "category_collection_name": "categories",
-    "category_model_name": "Catrgory"
+  "names": {
+    "record_collection": "records",
+    "record_model": "Record",
+    "category_collection": "categories",
+    "category_model": "Catrgory"
   },
   "categories": [
     {
