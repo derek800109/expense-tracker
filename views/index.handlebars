@@ -28,13 +28,15 @@
         </div>
         <div>{{this.amount}}</div>
         <div>
-          <button type="button" class="btn btn-warning">修改</button>
-          <button type="button" class="btn btn-danger">刪除</button>
+          <a class="btn btn-warning" href="/expenseTrackers/{{ this._id }}/edit">修改</a>
+          <form action="./expenseTrackers/{{ this._id }}?_method=DELETE" method="POST" style="display: inline;">
+            <button class="btn btn-danger" type="submit">刪除</button>
+          </form>
         </div>
       </li>
       {{/each}}
     </ul>
   </div>
   <!-- add new record -->
-  <button type="button" class="btn btn-success">新增支出</button>
+  <a class="btn btn-success" href="/expenseTrackers/new">新增支出</a>
 </div>

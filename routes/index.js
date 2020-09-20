@@ -11,7 +11,7 @@ const Router = express.Router()
 //----------------------------------------------------------------------------------
 
 Router.use('/', home)
-// Router.use('/expenseTrackers', expenseTrackers)
+Router.use('/expenseTrackers', expenseTrackers)
 
 
 // 準備引入路由模組
