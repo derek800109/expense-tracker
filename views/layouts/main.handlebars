@@ -19,7 +19,18 @@
   <!-- navigation -->
   <nav class="navbar navbar-dark bg-dark">
     <div class="container">
-      <a class="navbar-brand" href="javascript:void(0)">家庭記帳本</a>
+      <a class="navbar-brand" href="javascript:void(0)">
+        {{#if isAuthenticated}}{{ user.name}}'s {{/if}}
+        家庭記帳本
+      </a>
+      {{#if isAuthenticated}}
+        <div class="d-flex justify-content-center mr-3">
+          <a href="/users/logout" class="btn btn-outline-light mr-2">Logout</a>
+          <a href="/restaurants/new" type="button" class="btn btn-primary btn-lg btn-block">Create</a>
+        </div>
+      {{else}}
+        <a href="/users/login" class="btn btn-outline-light">Login</a>
+      {{/if}}
     </div>
   </nav>
   <!-- partial templates will replace the part of "body" here -->

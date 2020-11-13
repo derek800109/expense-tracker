@@ -36,6 +36,7 @@ function get_yyyymmdd(date) {
 }
 
 router.get('/', (req, res) => {
+  const userId = req.user._id
   const total_amount_category = req.query.filter || null
   console.log(' ****** ' + total_amount_category)
 
@@ -46,8 +47,7 @@ router.get('/', (req, res) => {
       categories.push({ category: "全部" })
       const currentCategory = categories.filter(category => category._id == total_amount_category)[0].category || "全部"
 
-      Record
-        .find()
+      Record.find({ userId }) // 取出 Todo model 裡的所有資料
         .lean()
         .populate({ path: 'category', names: ['category', 'icon'] })
         .then(records => {

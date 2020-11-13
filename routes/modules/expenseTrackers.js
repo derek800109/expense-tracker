@@ -1,23 +1,24 @@
 const express = require('express')
+const router = express.Router()
 
 const Record = require('../../models/record')
 const Category = require('../../models/category')
 
-const Router = express.Router()
+//----------------------------------------------------------------------------------
 
 const default_category = ""
 
 //---------------------------------------------------------------------------------- edit
 
-Router.get('/:id/edit', (req, res) => {
-  const id = req.params.id
+router.get('/:id/edit', (req, res) => {
+  const userId = req.user._id
+  const _id = req.params.id
 
   Category
     .find()
     .lean()
     .then(categories => {
-      Record
-        .findById(id)
+      Record.findOne({ _id, userId })
         .lean()
         .then(record => {
           record = {
@@ -43,12 +44,12 @@ Router.get('/:id/edit', (req, res) => {
     .catch(error => console.error(error))
 })
 
-Router.put('/:id', (req, res) => {
-  const id = req.params.id
+router.put('/:id', (req, res) => {
+  const userId = req.user._id
+  const _id = req.params.id
   const { name, date, category, amount } = req.body
 
-  Record
-    .findById(id)
+  Record.findOne({ _id, userId })
     .then(record => {
       record.name = name
       record.date = new Date(date)
@@ -72,7 +73,7 @@ function get_string_data(data) {
   return [yyyy, mm, dd].join('-')
 }
 
-Router.get('/new', (req, res) => {
+router.get('/new', (req, res) => {
   // go to new page from home
   Category
     .find()
@@ -85,8 +86,9 @@ Router.get('/new', (req, res) => {
     .catch(error => console.error(error))
 })
 
-Router.post('/', (req, res) => {
+router.post('/', (req, res) => {
   // create new record from new.handlebars
+  const userId = req.user._id
   const { name, date, category, amount } = req.body
   console.log(name, date, category, amount)
 
@@ -99,7 +101,7 @@ Router.post('/', (req, res) => {
     .findById(category)
     .lean()
     .then(category_ => {
-      const record = new Record({ name, date, category: category_, amount })
+      const record = new Record({ userId, name, date, category: category_, amount })
       record.save()
     })
     .then(() => res.redirect('/'))
@@ -109,11 +111,11 @@ Router.post('/', (req, res) => {
 
 //---------------------------------------------------------------------------------- delete
 
-Router.delete('/:id', (req, res) => {
-  const id = req.params.id
+router.delete('/:id', (req, res) => {
+  const userId = req.user._id
+  const _id = req.params.id
 
-  return Record
-    .findById(id)
+  return Record.findOne({ _id, userId })
     .then(record => record.remove())
     .then(() => res.redirect('/'))
     .catch(error => console.error(error))
@@ -121,4 +123,4 @@ Router.delete('/:id', (req, res) => {
 
 //----------------------------------------------------------------------------------
 
-module.exports = Router
+module.exports = router

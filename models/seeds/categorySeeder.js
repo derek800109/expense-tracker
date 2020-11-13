@@ -10,12 +10,14 @@ const Category = require('../category') // 載入 todo model
 
 db.once('open', () => {
   console.log('open and create things in category collection')
-  expenseTracker.categories.forEach(category_ => {
+  return expenseTracker.categories.forEach(category_ => {
     Category.create({
       category: category_.category,
       icon: category_.icon
     })
   })
-
+}).then(() => {
   console.log('done')
+  // process.exit() 指「關閉這段 Node 執行程序」
+  process.exit()
 })

@@ -23,6 +23,12 @@ const recordSchema = new Schema({
     type: Number,
     min: 0,
     required: true
+  },
+  userId: {  // 加入關聯設定
+      type: Schema.Types.ObjectId,
+      ref: 'User',
+      index: true,
+      required: true
   }
 }, { collection: expenseTracker.names.record_collection })
 
