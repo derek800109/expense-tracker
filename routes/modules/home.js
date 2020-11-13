@@ -1,9 +1,8 @@
 const express = require('express')
+const router = express.Router()
 
 const Category = require('../../models/category')
 const Record = require('../../models/record')
-
-const Router = express.Router()
 
 //----------------------------------------------------------------------------------
 
@@ -36,7 +35,7 @@ function get_yyyymmdd(date) {
   return [year, month, day].join('/')
 }
 
-Router.get('/', (req, res) => {
+router.get('/', (req, res) => {
   const total_amount_category = req.query.filter || null
   console.log(' ****** ' + total_amount_category)
 
@@ -46,7 +45,7 @@ Router.get('/', (req, res) => {
     .then(categories => {
       categories.push({ category: "全部" })
       const currentCategory = categories.filter(category => category._id == total_amount_category)[0].category || "全部"
-      
+
       Record
         .find()
         .lean()
@@ -74,4 +73,4 @@ Router.get('/', (req, res) => {
 
 //----------------------------------------------------------------------------------
 
-module.exports = Router
+module.exports = router
