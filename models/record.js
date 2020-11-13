@@ -10,9 +10,14 @@ const recordSchema = new Schema({
     trim: true,
     required: true
   },
+  merchant: {
+    type: String,
+    trim: true,
+    required: true
+  },
   category: {
     type: Schema.Types.ObjectId,
-    ref: expenseTracker.names.category_model,
+    ref: 'Category',
     required: true
   },
   date: {
@@ -30,6 +35,6 @@ const recordSchema = new Schema({
       index: true,
       required: true
   }
-}, { collection: expenseTracker.names.record_collection })
+})
 
-module.exports = mongoose.model(expenseTracker.names.record_model, recordSchema)
+module.exports = mongoose.model('Record', recordSchema)

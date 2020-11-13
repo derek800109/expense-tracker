@@ -26,6 +26,7 @@ router.get('/:id/edit', (req, res) => {
             name: record.name,
             date: get_string_data(record.date),
             category: record.category,
+            merchant: record.merchant,
             amount: record.amount
           }
 
@@ -47,7 +48,7 @@ router.get('/:id/edit', (req, res) => {
 router.put('/:id', (req, res) => {
   const userId = req.user._id
   const _id = req.params.id
-  const { name, date, category, amount } = req.body
+  const { name, date, category, merchant, amount } = req.body
 
   Record.findOne({ _id, userId })
     .then(record => {
@@ -55,6 +56,7 @@ router.put('/:id', (req, res) => {
       record.date = new Date(date)
       record.category = category
       record.amount = amount
+      record.merchant = merchant
 
       return record.save()
     })
@@ -89,10 +91,10 @@ router.get('/new', (req, res) => {
 router.post('/', (req, res) => {
   // create new record from new.handlebars
   const userId = req.user._id
-  const { name, date, category, amount } = req.body
-  console.log(name, date, category, amount)
+  const { name, date, category, merchant, amount } = req.body
+  console.log(name, date, category, merchant, amount)
 
-  if (name === "" || category === default_category || amount === "") {
+  if (name === "" || category === default_category || amount === "" || merchant === "") {
     console.log('unvalid input data')
     return res.redirect('/expenseTrackers/new')
   }
@@ -101,7 +103,7 @@ router.post('/', (req, res) => {
     .findById(category)
     .lean()
     .then(category_ => {
-      const record = new Record({ userId, name, date, category: category_, amount })
+      const record = new Record({ userId, name, date, category: category_, merchant, amount })
       record.save()
     })
     .then(() => res.redirect('/'))

@@ -1,7 +1,5 @@
 const mongoose = require('mongoose')
 
-const expenseTracker = require('./expenseTracker.json')
-
 const Schema = mongoose.Schema
 
 const categorySchema = new Schema({
@@ -16,6 +14,6 @@ const categorySchema = new Schema({
     trim: true,
     required: true
   }
-}, { collection: expenseTracker.names.category_collection })
+})
 
-module.exports = mongoose.model(expenseTracker.names.category_model, categorySchema)
+module.exports = mongoose.model('Category', categorySchema)
