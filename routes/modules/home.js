@@ -38,6 +38,7 @@ function get_yyyymmdd(date) {
 
 Router.get('/', (req, res) => {
   const total_amount_category = req.query.filter || null
+  console.log(' ****** ' + total_amount_category)
 
   Category
     .find()
@@ -45,22 +46,23 @@ Router.get('/', (req, res) => {
     .then(categories => {
       categories.push({ category: "全部" })
       const currentCategory = categories.filter(category => category._id == total_amount_category)[0].category || "全部"
-
+      
       Record
         .find()
         .lean()
         .populate({ path: 'category', names: ['category', 'icon'] })
         .then(records => {
           const totalAmount = get_total_amount(total_amount_category, records)
+          records = records.filter(record => record.category.category === currentCategory || currentCategory === "全部")
           records = records.map(record => {
-            return {
-              _id: record._id,
-              name: record.name,
-              category: record.category,
-              date: get_yyyymmdd(record.date),
-              amount: record.amount
-            }
-          })
+                        return {
+                          _id: record._id,
+                          name: record.name,
+                          category: record.category,
+                          date: get_yyyymmdd(record.date),
+                          amount: record.amount
+                        }
+                      })
 
 
           res.render('index', { records, categories, totalAmount, currentCategory })

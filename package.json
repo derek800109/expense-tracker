@@ -1,7 +1,7 @@
 {
   "name": "expense-tracker",
   "version": "1.0.0",
-  "description": "",
+  "description": "核心功能是讓老爸新增、修改與刪除「支出紀錄」",
   "main": "app.js",
   "scripts": {
     "start": "node app.js",
@@ -11,7 +11,7 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
-  "author": "",
+  "author": "Derek",
   "license": "ISC",
   "dependencies": {
     "body-parser": "^1.19.0",
@@ -20,5 +20,13 @@
     "method-override": "^3.0.0",
     "mongoose": "^5.10.6",
     "nodemon": "^2.0.4"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/derek800109/expense-tracker.git"
+  },
+  "bugs": {
+    "url": "https://github.com/derek800109/expense-tracker/issues"
+  },
+  "homepage": "https://github.com/derek800109/expense-tracker#readme"
 }
