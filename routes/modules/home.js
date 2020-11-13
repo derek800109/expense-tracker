@@ -59,7 +59,8 @@ router.get('/', (req, res) => {
                           name: record.name,
                           category: record.category,
                           date: get_yyyymmdd(record.date),
-                          amount: record.amount
+                          amount: record.amount,
+                          merchant: record.merchant
                         }
                       })
 
