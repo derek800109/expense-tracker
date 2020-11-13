@@ -12,7 +12,7 @@ const Category = require('../category')
 db.once('open', () => {
   console.log('open and create things in record collection')
 
-  expenseTracker.records.forEach(record => {
+  return expenseTracker.records.forEach(record => {
     Category
       .findOne({ category: record.category })
       .then(category => {
@@ -27,5 +27,9 @@ db.once('open', () => {
       })
   })
 
+  
+}).then(() => {
   console.log('Done')
+  // process.exit() 指「關閉這段 Node 執行程序」
+  process.exit()
 })
