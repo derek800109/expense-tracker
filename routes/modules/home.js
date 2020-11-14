@@ -37,7 +37,6 @@ router.get('/', (req, res) => {
   const currentCategory = req.query.category || "類別"
   const currentMonth = req.query.month || '月份'
   let months = ['月份'].concat(Array.from({ length: 12 }, (_, i) => (i + 1).toString()))
-  console.log('month:' + currentMonth)
 
   Category
       .find()
@@ -51,7 +50,6 @@ router.get('/', (req, res) => {
           .then(records => {
             records = records.filter(record => record.category.category === currentCategory || currentCategory === "類別")
             records = records.filter(record => (record.date.getMonth() + 1).toString() === currentMonth || currentMonth === '月份')
-            console.log(records.map(record => record.date.getMonth()))
 
             const totalAmount = get_total_amount(records)
 

@@ -9,6 +9,7 @@ const User = require('../../models/user')
 
 // GET / users / login
 router.get('/login', (req, res) => {
+  req.flash('warning_msg', '請先登入才能使用！')
   res.render('login')
 })
 
